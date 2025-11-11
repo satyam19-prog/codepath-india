@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors({
   origin: process.env.FRONTEND_URL,
-  credentials: true
+  credentials: true,
 }));
 
 app.use(express.json());
@@ -19,5 +19,7 @@ app.get("/", (req, res) => {
   res.send("API is running ✅");
 });
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
