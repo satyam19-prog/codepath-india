@@ -5,7 +5,7 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
 
   const submit = async () => {
-    const res = await API.post("/login", form);
+    const res = await API.post("/auth/login", form);
     if(res.data.success){
       localStorage.setItem("token", res.data.token);
       window.location.href = "/dashboard";

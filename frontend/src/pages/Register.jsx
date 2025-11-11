@@ -9,7 +9,7 @@ export default function Register() {
   const submit = async () => {
     try {
       console.log(form)
-      const res = await API.post("/register", form);
+      const res = await API.post("/auth/register", form);
       if (!res.ok) console.log(res)
       alert("✅ Registered Successfully! Please Login.");
       navigate("/login");
