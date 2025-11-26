@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import LightRays from "../components/LightRays";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
