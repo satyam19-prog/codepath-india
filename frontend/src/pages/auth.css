@@ -1,0 +1,95 @@
+.auth-wrapper {
+  height: 100vh;
+  width: 100%;
+  background: #0a0a0a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 2rem;
+  border-radius: 18px;
+
+  background: rgba(25, 25, 35, 0.55); 
+  border: 1px solid rgba(79, 70, 229, 0.35);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 0 22px rgba(79, 70, 229, 0.25);
+
+  animation: fadeIn 0.7s ease;
+}
+
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.auth-card input {
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 6px rgba(79, 70, 229, 0.6);
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: none;
+
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.auth-card button:hover {
+  background: #3e3ac9;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1rem;
+  color: #ddd;
+}
+
+.auth-link a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

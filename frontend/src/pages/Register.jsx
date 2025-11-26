@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import "./auth.css";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -8,23 +9,42 @@ export default function Register() {
 
   const submit = async () => {
     try {
-      console.log(form)
-      const res = await API.post("/auth/register", form);
-      if (!res.ok) console.log(res)
-      alert("✅ Registered Successfully! Please Login.");
+      await API.post("/auth/register", form);
+      alert("Registered successfully!");
       navigate("/login");
-    } catch (err) {
-      alert(err.response?.data?.message || "Registration Failed ❌");
+    } catch {
+      alert("Registration failed");
     }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <input placeholder="Name" onChange={(e)=>setForm({...form,name:e.target.value})}/>
-      <input placeholder="Email" onChange={(e)=>setForm({...form,email:e.target.value})}/>
-      <input placeholder="Password" type="password" onChange={(e)=>setForm({...form,password:e.target.value})}/>
-      <button onClick={submit}>Register</button>
+    <div className="auth-wrapper">
+      <div className="auth-card glass">
+        <h2>Create Account</h2>
+
+        <input
+          placeholder="Full Name"
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+
+        <button onClick={submit}>Register</button>
+
+        <p className="auth-link">
+          Already have an account? <a href="/login">Login</a>
+        </p>
+      </div>
     </div>
   );
 }

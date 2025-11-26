@@ -1,16 +1,28 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
+      <div>
         <Link to="/">CodePath India</Link>
       </div>
-      <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+
+      <div style={{ display: "flex", gap: "20px" }}>
+        {user ? (
+          <>
+            <Link to="/dashboard">Dashboard</Link>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );
