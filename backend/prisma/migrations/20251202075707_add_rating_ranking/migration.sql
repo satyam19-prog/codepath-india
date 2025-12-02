@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `UserProgress` ADD COLUMN `ranking` INTEGER NULL,
+    ADD COLUMN `rating` INTEGER NOT NULL DEFAULT 1200;

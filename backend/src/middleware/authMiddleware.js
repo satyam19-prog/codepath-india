@@ -8,11 +8,11 @@ export const authMiddleware = (req, res, next) => {
     if (!token)
       return res.status(401).json({ success: false, message: "No token provided" });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
 
     next();
   } catch (err) {
-    return res.status(401).json({ success: false, message: "Invalid token" });
+    return res.status(401).json({ success: false, message: "Invalid or expired token" });
   }
 };

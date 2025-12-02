@@ -8,9 +8,68 @@ datasource db {
 }
 
 model User {
+  id         Int          @id @default(autoincrement())
+  name       String
+  email      String       @unique
+  password   String
+  role       String       @default("student") // "student", "teacher", "admin"
+  isAdmin    Boolean      @default(false) 
+  createdAt  DateTime     @default(now())
+  submissions Submission[]
+  userProgress UserProgress?
+  
+  // Relations for Classrooms
+  teachingClassrooms Classroom[] @relation("TeacherClassrooms")
+  studentClassrooms  Classroom[] @relation("StudentClassrooms")
+}
+
+model Challenge {
+  id           Int          @id @default(autoincrement())
+  title        String
+  type         String       // "manual" or "codeforces"
+  cfProblemId  String?      // e.g. "158A", null for manual
+  difficulty   String?
+  tags         String?
+  statement    String?      // only for manual challenges
+  testCases    Json?        // Array of {input, output}
+  createdAt    DateTime     @default(now())
+
+  submissions  Submission[]
+}
+
+model Submission {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  challengeId Int
+  sourceCode  String    @db.Text
+  language    String
+  status      String    // "pending" / "passed" / "failed" / "error"
+  result      String?   @db.Text
+  createdAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id])
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+}
+
+model UserProgress {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  solved     Int      @default(0)
+  streak     Int      @default(0)
+  rating     Int      @default(1200)
+  ranking    Int?
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model Classroom {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String   @unique
-  password  String
+  code      String   @unique // 6-digit code to join
+  teacherId Int
   createdAt DateTime @default(now())
+
+  teacher   User     @relation("TeacherClassrooms", fields: [teacherId], references: [id])
+  students  User[]   @relation("StudentClassrooms")
 }
