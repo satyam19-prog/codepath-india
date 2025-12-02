@@ -42,11 +42,11 @@ export const joinClassroom = async (req, res) => {
     }
 
     // Check if already joined
-    const existing = await prisma.classroom.findFirst({
+    const existing = await prisma.classroomStudent.findUnique({
       where: {
-        id: classroom.id,
-        students: {
-          some: { id: studentId },
+        classroomId_userId: {
+          classroomId: classroom.id,
+          userId: studentId,
         },
       },
     });
@@ -56,12 +56,10 @@ export const joinClassroom = async (req, res) => {
     }
 
     // Add student to classroom
-    await prisma.classroom.update({
-      where: { id: classroom.id },
+    await prisma.classroomStudent.create({
       data: {
-        students: {
-          connect: { id: studentId },
-        },
+        classroomId: classroom.id,
+        userId: studentId,
       },
     });
 
@@ -76,12 +74,16 @@ export const joinClassroom = async (req, res) => {
 export const getClassroom = async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     const classroom = await prisma.classroom.findUnique({
       where: { id: Number(id) },
       include: {
         students: {
-          select: { id: true, name: true, email: true, userProgress: true },
+          include: {
+            user: {
+              select: { id: true, name: true, email: true, userProgress: true },
+            },
+          },
         },
         teacher: {
           select: { id: true, name: true },
@@ -104,20 +106,18 @@ export const getClassroom = async (req, res) => {
 export const getUserClassrooms = async (req, res) => {
   try {
     const userId = req.userId;
-    
+
     // Check if teacher
     const teaching = await prisma.classroom.findMany({
       where: { teacherId: userId },
     });
 
     // Check if student
-    const studying = await prisma.classroom.findMany({
-      where: {
-        students: {
-          some: { id: userId },
-        },
-      },
+    const studentRecords = await prisma.classroomStudent.findMany({
+      where: { userId },
+      include: { classroom: true },
     });
+    const studying = studentRecords.map(r => r.classroom);
 
     res.json({ success: true, teaching, studying });
   } catch (err) {

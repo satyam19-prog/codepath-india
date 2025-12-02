@@ -20,7 +20,7 @@ model User {
   
   // Relations for Classrooms
   teachingClassrooms Classroom[] @relation("TeacherClassrooms")
-  studentClassrooms  Classroom[] @relation("StudentClassrooms")
+  studentClassrooms  ClassroomStudent[]
 }
 
 model Challenge {
@@ -71,5 +71,16 @@ model Classroom {
   createdAt DateTime @default(now())
 
   teacher   User     @relation("TeacherClassrooms", fields: [teacherId], references: [id])
-  students  User[]   @relation("StudentClassrooms")
+  students  ClassroomStudent[]
+}
+
+model ClassroomStudent {
+  classroomId Int
+  userId      Int
+  joinedAt    DateTime @default(now())
+
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@id([classroomId, userId])
 }

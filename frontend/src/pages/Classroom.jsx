@@ -128,8 +128,8 @@ export default function Classroom() {
                         <h3>Students ({selectedClassroom.students.length})</h3>
                         <ul>
                             {selectedClassroom.students.map((s) => (
-                                <li key={s.id}>
-                                    {s.name} - Solved: {s.userProgress?.solved || 0}
+                                <li key={s.user.id}>
+                                    {s.user.name} - Solved: {s.user.userProgress?.solved || 0}
                                 </li>
                             ))}
                         </ul>
