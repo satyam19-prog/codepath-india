@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import API from "../services/api";
+import { AuthContext } from "../context/AuthContext";
 import "./Challenges.css";
 
 export default function Challenges() {
+  const { user } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("assignments");
   const [assignments, setAssignments] = useState([]);
   const [cfProblems, setCfProblems] = useState([]);
@@ -48,6 +50,20 @@ export default function Challenges() {
       })
       .catch(err => console.error("CF API Error:", err));
   }, []);
+
+  const handleDelete = async (id, e) => {
+    e.preventDefault(); // Prevent navigation
+    if (!window.confirm("Are you sure you want to delete this challenge?")) return;
+
+    try {
+      await API.delete(`/challenges/${id}`);
+      setAssignments(assignments.filter(c => c.id !== id));
+      alert("Challenge deleted successfully");
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Failed to delete challenge");
+    }
+  };
 
   // Filter Logic
   useEffect(() => {
@@ -106,7 +122,17 @@ export default function Challenges() {
                   <span>{ch.tags}</span>
                 </div>
               </div>
-              <button className="solve-btn">Solve</button>
+              <div className="card-actions">
+                <button className="solve-btn">Solve</button>
+                {user?.isAdmin && (
+                  <button
+                    className="delete-btn"
+                    onClick={(e) => handleDelete(ch.id, e)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
             </Link>
           ))}
         </div>
