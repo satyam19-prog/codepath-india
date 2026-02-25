@@ -58,16 +58,16 @@ A modern, gamified coding platform designed to help students master data structu
 -   MySQL Database (Local or Cloud)
 
 ### 1. Clone the Repository
-\`\`\`bash
+bash
 git clone https://github.com/yourusername/codepath-india.git
 cd codepath-india
 \`\`\`
 
 ### 2. Backend Setup
-\`\`\`bash
+```bash
 cd backend
 npm install
-\`\`\`
+```
 
 **Create a `.env` file in `backend/`:**
 \`\`\`env
