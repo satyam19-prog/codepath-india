@@ -58,10 +58,11 @@ A modern, gamified coding platform designed to help students master data structu
 -   MySQL Database (Local or Cloud)
 
 ### 1. Clone the Repository
+```
 bash
 git clone https://github.com/yourusername/codepath-india.git
 cd codepath-india
-\`\`\`
+```
 
 ### 2. Backend Setup
 ```bash
@@ -69,73 +70,77 @@ cd backend
 npm install
 ```
 
-**Create a `.env` file in `backend/`:**
-\`\`\`env
+**Create a ```.env``` file in ```backend/```:**
+```
+env
 PORT=3000
 DATABASE_URL="mysql://user:password@host:port/dbname"
 JWT_SECRET="your_super_secret_key"
 FRONTEND_URL="http://localhost:5173"
 # Optional: Judge0 API Key if using RapidAPI
 RAPIDAPI_KEY="your_rapidapi_key"
-\`\`\`
+```
 
 **Run Database Migrations:**
-\`\`\`bash
+```
+bash
 npx prisma migrate dev --name init
 node seed_data.js  # Optional: Seeds dummy data
-\`\`\`
+```
 
 **Start Server:**
-\`\`\`bash
+```
+bash
 npm run dev
-\`\`\`
+```
 
 ### 3. Frontend Setup
-\`\`\`bash
+```bash
 cd ../frontend
 npm install
-\`\`\`
+```
 
-**Create a `.env` file in `frontend/`:**
-\`\`\`env
+**Create a ```.env``` file in ```frontend/```:**
+```env
 VITE_API_URL="http://localhost:3000"
-\`\`\`
+```
 
 **Start Client:**
-\`\`\`bash
+```
+bash
 npm run dev
-\`\`\`
+```
 
 ---
 
 ## 📚 API Documentation
 
 ### Auth
--   `POST /api/auth/register` - Register new user
--   `POST /api/auth/login` - Login user
--   `GET /api/auth/me` - Get current user details
+-   ```POST /api/auth/register``` - Register new user
+-   ```POST /api/auth/login``` - Login user
+-   ```GET /api/auth/me``` - Get current user details
 
 ### Challenges
--   `GET /api/challenges` - List manual challenges
--   `GET /api/challenges/codeforces` - List Codeforces problems (Filtered)
--   `POST /api/challenges/create` - Create challenge (Admin only)
+-   ```GET /api/challenges``` - List manual challenges
+-   ```GET /api/challenges/codeforces``` - List Codeforces problems (Filtered)
+-   ```POST /api/challenges/create``` - Create challenge (Admin only)
 
 ### Classrooms
--   `POST /api/classrooms/create` - Create classroom (Teacher only)
--   `POST /api/classrooms/join` - Join classroom via code
--   `GET /api/classrooms/my` - List user's classrooms
+-   ```POST /api/classrooms/create``` - Create classroom (Teacher only)
+-   ```POST /api/classrooms/join``` - Join classroom via code
+-   ```GET /api/classrooms/my``` - List user's classrooms
 
 ### Submissions
--   `POST /api/submissions/run` - Run code without saving
--   `POST /api/submissions/submit` - Submit solution for grading
+-   ```POST /api/submissions/run``` - Run code without saving
+-   ```POST /api/submissions/submit``` - Submit solution for grading
 
 ---
 
 ## 🤝 Contributing
 1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the branch (`git push origin feature/AmazingFeature`).
+2.  Create a new branch (```git checkout -b feature/AmazingFeature```).
+3.  Commit your changes (```git commit -m 'Add some AmazingFeature'```).
+4.  Push to the branch (```git push origin feature/AmazingFeature```).
 5.  Open a Pull Request.
 
 ## 📄 License
